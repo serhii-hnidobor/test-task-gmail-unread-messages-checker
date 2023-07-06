@@ -18,7 +18,7 @@ args
     'email',
     'your gmail address (account must be without two factor auth)',
   )
-  .option('password', 'your gamil password')
+  .option('password', 'your gmail password')
   .option('chromeExecutablePath', 'custom chrome executable path');
 
 const flags = args.parse(process.argv);
@@ -73,7 +73,8 @@ async function main() {
   try {
     await page.waitForSelector('div[role="main"]');
   } catch (e) {
-    console.error('auth credential incorrect');
+    console.error('\n auth credential incorrect');
+    process.exit(1);
     return;
   }
 
@@ -116,9 +117,10 @@ async function main() {
   } while (true);
   progressBar.update(100);
 
-  console.log(`\n ypu have - ${result} unread messages`);
+  console.log(`\n you have - ${result} unread messages`);
 
   await browser.close();
+  process.exit(0);
 }
 
 main();
